@@ -3,22 +3,80 @@
 # Image Setup
 #--------------------------------------------------------------------------
 #
-# To edit the 'workspace' base Image, visit its repository on Github
-#    https://github.com/Laradock/workspace
+
+FROM phusion/baseimage:latest
+
+MAINTAINER Hiro Zhou <zxishere@gmail.com>
+
+RUN DEBIAN_FRONTEND=noninteractive
+RUN locale-gen en_US.UTF-8
+
+ENV LANGUAGE=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV LC_CTYPE=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV TERM xterm
+
+# Add the "PHP 5" ppa
+RUN apt-get install -y software-properties-common && \
+    add-apt-repository -y ppa:ondrej/php
+
 #
-# To change its version, see the available Tags on the Docker Hub:
-#    https://hub.docker.com/r/laradock/workspace/tags/
-#
-# Note: Base Image name format {image-tag}-{php-version}
+#--------------------------------------------------------------------------
+# Software's Installation
+#--------------------------------------------------------------------------
 #
 
-FROM laradock/workspace:2.0-56
+# Install "PHP Extentions", "libraries", "Software's"
+RUN apt-get update && \
+    apt-get install -y --allow-downgrades --allow-remove-essential \
+        --allow-change-held-packages \
+        php5.6-cli \
+        php5.6-common \
+        php5.6-curl \
+        php5.6-intl \
+        php5.6-json \
+        php5.6-xml \
+        php5.6-mbstring \
+        php5.6-mcrypt \
+        php5.6-mysql \
+        php5.6-pgsql \
+        php5.6-sqlite \
+        php5.6-sqlite3 \
+        php5.6-zip \
+        php5.6-bcmath \
+        php5.6-memcached \
+        php5.6-gd \
+        php5.6-dev \
+        pkg-config \
+        libcurl4-openssl-dev \
+        libedit-dev \
+        libssl-dev \
+        libxml2-dev \
+        xz-utils \
+        libsqlite3-dev \
+        sqlite3 \
+        git \
+        curl \
+        vim \
+        nano \
+        postgresql-client \
+    && apt-get clean
 
-MAINTAINER Mahmoud Zalt <mahmoud@zalt.me>
+#####################################
+# Composer:
+#####################################
+
+# Install composer and add its bin to the PATH.
+RUN curl -s http://getcomposer.org/installer | php && \
+    echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.bashrc && \
+    mv composer.phar /usr/local/bin/composer
+
+# Source the bash
+RUN . ~/.bashrc
 
 # Remove Faillog and Lastlog to reduce the size of the final image.
 RUN rm /var/log/lastlog /var/log/faillog
-
 
 #####################################
 # Non-Root User:
