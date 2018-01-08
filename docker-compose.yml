@@ -1,0 +1,75 @@
+version: '2'
+
+services:
+
+### Applications Code Container #############################
+
+    applications:
+      image: tianon/true
+      volumes:
+        - ../:/var/www
+
+### Workspace Utilities Container ###########################
+
+    workspace:
+      build:
+        context: ./workspace
+        dockerfile: "Dockerfile-56"
+      volumes_from:
+        - applications
+      tty: true
+
+### PHP-FPM Container #######################################
+
+    php-fpm:
+      build:
+        context: ./php-fpm
+        dockerfile: "Dockerfile-56"
+      volumes_from:
+        - applications
+      volumes:
+        - ./php-fpm/php56.ini:/usr/local/etc/php/php.ini
+      expose:
+        - "9000"
+      depends_on:
+        - workspace
+
+### Apache Server Container #################################
+
+    apache2:
+      build:
+        context: ./apache2
+      volumes_from:
+        - applications
+      volumes:
+        - ./logs/apache2/var/log/apache2
+        - ./apache2/sites:/etc/apache2/sites-available
+      ports:
+        - "80:80"
+        - "443:443"
+      depends_on:
+        - php-fpm
+
+
+### PostgreSQL Container ####################################
+
+    postgres:
+      build: ./postgres
+      volumes:
+        - ~/.comidock/data/postgres:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+      environment:
+        - POSTGRES_DB=comiru_dev
+        - POSTGRES_USER=comiruuser
+        - POSTGRES_PASSWORD=comirupass
+
+
+### Redis Container #########################################
+
+    redis:
+      build: ./redis
+      volumes:
+        - ~/.comidock/data/redis:/data
+      ports:
+        - "6379:6379"
