@@ -34,22 +34,6 @@ services:
       depends_on:
         - workspace
 
-### NGINX Server Container ##################################
-
-    # nginx:
-    #   build:
-    #     context: ./nginx
-    #   volumes_from:
-    #     - applications
-    #   volumes:
-    #     - ./logs/nginx/:/var/log/nginx
-    #     - ./nginx/sites/:/etc/nginx/sites-available
-    #   ports:
-    #     - "80:80"
-    #     - "443:443"
-    #   depends_on:
-    #     - php-fpm
-
 ### Apache Server Container #################################
 
     apache2:
@@ -66,7 +50,6 @@ services:
       depends_on:
         - php-fpm
 
-
 ### PostgreSQL Container ####################################
 
     postgres:
@@ -79,7 +62,6 @@ services:
         - POSTGRES_DB=comiru_dev
         - POSTGRES_USER=comiruuser
         - POSTGRES_PASSWORD=comirupass
-
 
 ### Redis Container #########################################
 

@@ -65,7 +65,7 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
 # PHP REDIS EXTENSION FOR PHP 5
 #####################################
 
-ARG INSTALL_PHPREDIS=ture
+ARG INSTALL_PHPREDIS=true
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     # Install Php Redis Extension
     printf "\n" | pecl install -o -f redis \
