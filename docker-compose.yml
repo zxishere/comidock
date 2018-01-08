@@ -36,22 +36,19 @@ services:
 
 ### NGINX Server Container ##################################
 
-    nginx:
-      build:
-        context: ./nginx
-        args:
-          - PHP_UPSTREAM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
-          - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
-      volumes_from:
-        - applications
-      volumes:
-        - ./logs/nginx/:/var/log/nginx
-        - ./nginx/sites/:/etc/nginx/sites-available
-      ports:
-        - "80:80"
-        - "443:443"
-      depends_on:
-        - php-fpm
+    # nginx:
+    #   build:
+    #     context: ./nginx
+    #   volumes_from:
+    #     - applications
+    #   volumes:
+    #     - ./logs/nginx/:/var/log/nginx
+    #     - ./nginx/sites/:/etc/nginx/sites-available
+    #   ports:
+    #     - "80:80"
+    #     - "443:443"
+    #   depends_on:
+    #     - php-fpm
 
 ### Apache Server Container #################################
 
@@ -61,7 +58,7 @@ services:
       volumes_from:
         - applications
       volumes:
-        - ./logs/apache2/var/log/apache2
+        - ./logs/apache2:/var/log/apache2
         - ./apache2/sites:/etc/apache2/sites-available
       ports:
         - "80:80"
