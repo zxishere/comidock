@@ -19,7 +19,7 @@ Your folder structure should look like this:
 + project-2   
 ```
 
-2 - Go to **apache2/sites**, copy and edit config files to point to different project directory when visiting different domains.
+2 - Go to **comidock/apache2/sites**, copy and edit config files to point to different project directory when visiting different domains.
 
 ```sh
 cp sample.conf.example project-1.conf
@@ -47,7 +47,9 @@ Edit *.conf DocumentRoot and Directory like
 ```
 
 
-3 - Add the domains to the hosts files.
+3 - Add the domains to your **Mac's** hosts files. 
+
+[How to Edit Your Mac’s Hosts File](https://www.howtogeek.com/313026/how-to-edit-your-macs-hosts-file-from-system-preferences/)
 
 ```sh
 127.0.0.1  project-1.test
