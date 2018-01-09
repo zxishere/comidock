@@ -103,4 +103,25 @@ chmod -R 777 storage bootstrap/cache
 DB_CONNECTION=pgsql
 DB_HOST=postgres
 ```
+3 - Connect to Mac's Postgres.app
 
+Change the listen_address parameter in the file postgresql.conf:
+
+```sh
+listen_addresses '*'
+```
+
+Edit the pg_hba.conf file to configure which hosts can access the database
+
+```sh
+host all  all    0.0.0.0/0  md5
+```
+Enter workspace , run:
+
+```sh
+docker exec -it comidock_workspace_1 bash
+ls
+psql -U comiruuser -d comiru_dev -h docker.for.mac.localhost -p 5432
+```
+
+**docker.for.mac.localhost** is your mac's ip address in docker container
