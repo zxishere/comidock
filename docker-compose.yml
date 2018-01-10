@@ -52,16 +52,16 @@ services:
 
 ### PostgreSQL Container ####################################
 
-    postgres:
-      build: ./postgres
-      volumes:
-        - ~/.comidock/data/postgres:/var/lib/postgresql/data
-      ports:
-        - "5432:5432"
-      environment:
-        - POSTGRES_DB=comiru_dev
-        - POSTGRES_USER=comiruuser
-        - POSTGRES_PASSWORD=comirupass
+    # postgres:
+    #   build: ./postgres
+    #   volumes:
+    #     - ~/.comidock/data/postgres:/var/lib/postgresql/data
+    #   ports:
+    #     - "5432:5432"
+    #   environment:
+    #     - POSTGRES_DB=comiru_dev
+    #     - POSTGRES_USER=comiruuser
+    #     - POSTGRES_PASSWORD=comirupass
 
 ### Redis Container #########################################
 
