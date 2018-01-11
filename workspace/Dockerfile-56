@@ -23,7 +23,8 @@ RUN apt-get -qq -y install wget && \
     add-apt-repository -y ppa:ondrej/php && \
     add-apt-repository -y add-apt-repository 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' && \
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-    apt-key add -
+    apt-key add - \
+    apt-get update
 
 #
 #--------------------------------------------------------------------------
@@ -32,8 +33,7 @@ RUN apt-get -qq -y install wget && \
 #
 
 # Install "PHP Extentions", "libraries", "Software's"
-RUN apt-get update && \
-    apt-get install -y --allow-downgrades --allow-remove-essential \
+RUN apt-get install -y --allow-downgrades --allow-remove-essential \
         --allow-change-held-packages \
         php5.6-cli \
         php5.6-common \
