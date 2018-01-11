@@ -19,10 +19,11 @@ ENV TERM xterm
 
 # Add the "PHP 5" ppa
 RUN apt-get update && \
-    apt install wget && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:ondrej/php
-
+    apt-get install -y wget software-properties-common && \
+    add-apt-repository -y ppa:ondrej/php && \
+    add-apt-repository -y 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+    apt-key add -
 #
 #--------------------------------------------------------------------------
 # Software's Installation
