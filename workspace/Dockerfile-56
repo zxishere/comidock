@@ -17,9 +17,12 @@ ENV LC_CTYPE=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV TERM xterm
 
-# Add the "PHP 5" ppa
-RUN apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:ondrej/php
+# Add the "PHP 5 and PostgreSQL 10 repo" ppa
+RUN apt-get install -y software-properties-common wget && \
+    add-apt-repository -y ppa:ondrej/php && \
+    add-apt-repository -y add-apt-repository 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+    apt-key add -
 
 #
 #--------------------------------------------------------------------------
@@ -60,7 +63,7 @@ RUN apt-get update && \
         curl \
         vim \
         nano \
-        postgresql-client \
+        postgresql-client-10 \
     && apt-get clean
 
 #####################################
