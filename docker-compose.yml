@@ -17,6 +17,8 @@ services:
         dockerfile: "Dockerfile-56"
       volumes_from:
         - applications
+      ports:
+        - "8000:8000"
       tty: true
 
 ### PHP-FPM Container #######################################
